@@ -4,11 +4,16 @@ import com.ecommerce_isil.webapp.core.entity.Product;
 import com.ecommerce_isil.webapp.core.usecase.dto.request.CreateProductRequest;
 import com.ecommerce_isil.webapp.core.usecase.dto.response.ProductResponse;
 import com.ecommerce_isil.webapp.core.usecase.port.in.CreateProductCase;
+import com.ecommerce_isil.webapp.core.usecase.port.in.FilterProductByCategoryUseCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-public class ProductService implements CreateProductCase {
+public class ProductService implements CreateProductCase, FilterProductByCategoryUseCase {
+
     private final ProductRepositoryPort productRepositoryPort;
 
     public ProductService(ProductRepositoryPort productRepositoryPort) {
@@ -42,5 +47,22 @@ public class ProductService implements CreateProductCase {
                 saved.getUpdatedAt(),
                 saved.isStatus()
         );
+    }
+
+    @Override
+    public Page<ProductResponse> filterByCategory(UUID idCategory, Pageable pageable) {
+        return productRepositoryPort.filterByCategory(idCategory, pageable)
+                .map(product -> new ProductResponse(
+                        product.getId(),
+                        product.getName(),
+                        product.getDescription(),
+                        product.getPrice(),
+                        product.getStock(),
+                        product.getSales(),
+                        product.getIdCategory(),
+                        product.getCreatedAt(),
+                        product.getUpdatedAt(),
+                        product.isStatus()
+                ));
     }
 }
