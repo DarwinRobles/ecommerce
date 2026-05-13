@@ -1,0 +1,38 @@
+package com.ecommerce_isil.webapp.core.usecase.service;
+
+import com.ecommerce_isil.webapp.core.entity.SalesOrder;
+import com.ecommerce_isil.webapp.core.usecase.dto.request.CreateSalesOrderRequest;
+import com.ecommerce_isil.webapp.core.usecase.dto.response.SalesOrderResponse;
+import com.ecommerce_isil.webapp.core.usecase.port.in.CreateSalesOrderCase;
+import com.ecommerce_isil.webapp.core.usecase.port.out.SalesOrderRepositoryPort;
+
+import java.time.LocalDateTime;
+
+public class SalesOrderService implements CreateSalesOrderCase {
+    private final SalesOrderRepositoryPort salesOrderRepositoryPort;
+
+    public SalesOrderService(SalesOrderRepositoryPort salesOrderRepositoryPort) {
+        this.salesOrderRepositoryPort = salesOrderRepositoryPort;
+    }
+
+    @Override
+    public SalesOrderResponse createSalesOrder(CreateSalesOrderRequest request) {
+        SalesOrder order = new SalesOrder();
+        order.setIdClient(request.getIdClient());
+        order.setIdProduct(request.getIdProduct());
+        order.setStatus(request.getStatus());
+        order.setQuantity(request.getQuantity());
+        order.setCreatedAt(LocalDateTime.now());
+
+        SalesOrder saved = salesOrderRepositoryPort.save(order);
+
+        return new SalesOrderResponse(
+                saved.getId(),
+                saved.getCreatedAt(),
+                saved.getIdClient(),
+                saved.getIdProduct(),
+                saved.getStatus(),
+                saved.getQuantity()
+        );
+    }
+}
