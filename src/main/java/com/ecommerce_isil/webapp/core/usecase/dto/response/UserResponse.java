@@ -14,7 +14,7 @@ public class UserResponse {
     private String lastName;
     private String firstName;
     private String email;
-    private int phone;
+    private String phone;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String role;
@@ -25,7 +25,7 @@ public class UserResponse {
             String lastName,
             String firstName,
             String email,
-            int phone,
+            String phone,
             LocalDateTime createdAt,
             LocalDateTime updatedAt,
             String role
