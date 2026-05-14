@@ -26,7 +26,7 @@ public class UserJpaEntity {
     private String email;
     private String password;
     private String role;
-    private int phone;
+    private String phone;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

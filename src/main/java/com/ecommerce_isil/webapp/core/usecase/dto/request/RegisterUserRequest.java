@@ -11,7 +11,7 @@ public class RegisterUserRequest {
     private String firstName;
     private String email;
     private String  password;
-    private int phone;
+    private String phone;
 
     public RegisterUserRequest(
             String name,
@@ -19,7 +19,7 @@ public class RegisterUserRequest {
             String firstName,
             String email,
             String password,
-            int phone
+            String phone
     ) {
         this.name = name;
         this.lastName = lastName;
