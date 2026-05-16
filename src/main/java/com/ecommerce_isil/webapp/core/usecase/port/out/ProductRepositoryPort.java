@@ -9,4 +9,6 @@ public interface ProductRepositoryPort {
     Product save(Product product);
 
     Optional<Product> findById(UUID id);
+
+    Product updateProduct(Product product);
 }

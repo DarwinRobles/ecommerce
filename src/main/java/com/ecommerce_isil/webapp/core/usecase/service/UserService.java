@@ -5,9 +5,10 @@ import com.ecommerce_isil.webapp.core.usecase.dto.response.UserResponse;
 import com.ecommerce_isil.webapp.core.usecase.port.in.RegisterUserCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.UserRepositoryPort;
 import com.ecommerce_isil.webapp.core.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-
+@Service
 public class UserService implements RegisterUserCase {
     private final UserRepositoryPort userRepositoryPort;
 
