@@ -4,12 +4,14 @@ import com.ecommerce_isil.webapp.core.entity.User;
 import com.ecommerce_isil.webapp.core.usecase.port.out.UserRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.UserJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.UserRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class UserRepositoryAdapter implements UserRepositoryPort {
     private final UserRepository userRepository;
 
@@ -29,6 +31,11 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     @Override
     public Optional<User> findById(UUID id) {
         return userRepository.findById(id).map(this::toDomain);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email).map(this::toDomain);
     }
 
     //eliminar User por ID

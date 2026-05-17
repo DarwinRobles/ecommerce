@@ -1,19 +1,24 @@
 package com.ecommerce_isil.webapp.core.usecase.service;
 
+import com.ecommerce_isil.webapp.core.usecase.dto.request.LoginUserRequest;
 import com.ecommerce_isil.webapp.core.usecase.dto.request.RegisterUserRequest;
+import com.ecommerce_isil.webapp.core.usecase.dto.response.LoginUserResponse;
 import com.ecommerce_isil.webapp.core.usecase.dto.response.UserResponse;
 import com.ecommerce_isil.webapp.core.usecase.port.in.DeleteUserCase;
 import com.ecommerce_isil.webapp.core.usecase.port.in.FindUserByYearCase;
+import com.ecommerce_isil.webapp.core.usecase.port.in.LoginUserCase;
 import com.ecommerce_isil.webapp.core.usecase.port.in.RegisterUserCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.UserRepositoryPort;
 import com.ecommerce_isil.webapp.core.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class UserService implements RegisterUserCase, DeleteUserCase, FindUserByYearCase {
+@Service
+public class UserService implements RegisterUserCase, LoginUserCase, DeleteUserCase, FindUserByYearCase {
     private final UserRepositoryPort userRepositoryPort;
 
     public UserService(UserRepositoryPort userRepositoryPort) {
@@ -50,6 +55,26 @@ public class UserService implements RegisterUserCase, DeleteUserCase, FindUserBy
                savedUser.getRole()
         );
 
+    }
+
+
+    @Override
+    public Optional<LoginUserResponse> login(LoginUserRequest request) {
+        if (request.getEmail() == null || request.getPassword() == null) {
+            return Optional.empty();
+        }
+
+        return userRepositoryPort.findByEmail(request.getEmail())
+                .filter(user -> request.getPassword().equals(user.getPassword()))
+                .map(user -> new LoginUserResponse(
+                        user.getId(),
+                        user.getName(),
+                        user.getLastName(),
+                        user.getFirstName(),
+                        user.getEmail(),
+                        user.getRole(),
+                        "Login exitoso"
+                ));
     }
 
 
