@@ -4,10 +4,12 @@ import com.ecommerce_isil.webapp.core.entity.Product;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ProductJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ProductRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
     private final ProductRepository productRepository;
 
