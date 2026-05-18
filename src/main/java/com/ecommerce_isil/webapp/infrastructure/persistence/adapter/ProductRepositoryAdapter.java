@@ -5,8 +5,10 @@ import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ProductJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ProductRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
     private final ProductRepository productRepository;
@@ -25,6 +27,19 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public Optional<Product> findById(UUID id) {
         return productRepository.findById(id).map(this::toDomain);
+    }
+
+    @Override
+    public void deleteById(UUID id){
+        productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Product> findByStatus(boolean status){
+        return productRepository.findByStatus(status)
+                .stream()
+                .map(this::toDomain)
+                .collect(Collectors.toList());
     }
 
     private ProductJpaEntity toEntity(Product product) {

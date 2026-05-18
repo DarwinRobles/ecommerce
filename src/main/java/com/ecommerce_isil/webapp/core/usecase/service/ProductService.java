@@ -4,11 +4,17 @@ import com.ecommerce_isil.webapp.core.entity.Product;
 import com.ecommerce_isil.webapp.core.usecase.dto.request.CreateProductRequest;
 import com.ecommerce_isil.webapp.core.usecase.dto.response.ProductResponse;
 import com.ecommerce_isil.webapp.core.usecase.port.in.CreateProductCase;
+import com.ecommerce_isil.webapp.core.usecase.port.in.DeleteProductCase;
+import com.ecommerce_isil.webapp.core.usecase.port.in.FilterProductByStatusCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
-public class ProductService implements CreateProductCase {
+public class ProductService implements CreateProductCase, DeleteProductCase, FilterProductByStatusCase {
     private final ProductRepositoryPort productRepositoryPort;
 
     public ProductService(ProductRepositoryPort productRepositoryPort) {
@@ -30,17 +36,34 @@ public class ProductService implements CreateProductCase {
 
         Product saved = productRepositoryPort.save(product);
 
+        return toResponse(saved);
+    }
+
+    @Override
+    public void deleteProduct(UUID id){
+        productRepositoryPort.deleteById(id);
+    }
+
+    @Override
+    public List<ProductResponse> filterByStatus(boolean status){
+        return productRepositoryPort.findByStatus(status)
+                .stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    private ProductResponse toResponse(Product product){
         return new ProductResponse(
-                saved.getId(),
-                saved.getName(),
-                saved.getDescription(),
-                saved.getPrice(),
-                saved.getStock(),
-                saved.getSales(),
-                saved.getIdCategory(),
-                saved.getCreatedAt(),
-                saved.getUpdatedAt(),
-                saved.isStatus()
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getStock(),
+                product.getSales(),
+                product.getIdCategory(),
+                product.getCreatedAt(),
+                product.getUpdatedAt(),
+                product.isStatus()
         );
     }
 }
