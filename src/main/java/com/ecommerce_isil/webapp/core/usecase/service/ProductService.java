@@ -7,6 +7,7 @@ import com.ecommerce_isil.webapp.core.usecase.port.in.CreateProductCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ProductService implements CreateProductCase {
     private final ProductRepositoryPort productRepositoryPort;
@@ -43,4 +44,7 @@ public class ProductService implements CreateProductCase {
                 saved.isStatus()
         );
     }
+    public List<Product> getTopSellingProducts() {
+    return productRepositoryPort.findTopSellingProducts();
+}
 }

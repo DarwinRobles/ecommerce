@@ -6,6 +6,8 @@ import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ProductJpaEnt
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ProductRepository;
 
 import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.UUID;
 
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
@@ -25,6 +27,14 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public Optional<Product> findById(UUID id) {
         return productRepository.findById(id).map(this::toDomain);
+    }
+
+    @Override
+    public List<Product> findTopSellingProducts() {
+        return productRepository.findTop5ByOrderBySalesDesc()
+                .stream()
+                .map(this::toDomain)
+                .collect(Collectors.toList());
     }
 
     private ProductJpaEntity toEntity(Product product) {

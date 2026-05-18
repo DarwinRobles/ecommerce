@@ -10,7 +10,6 @@ import com.ecommerce_isil.webapp.core.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class UserService implements RegisterUserCase, DeleteUserCase, FindUserByYearCase {
