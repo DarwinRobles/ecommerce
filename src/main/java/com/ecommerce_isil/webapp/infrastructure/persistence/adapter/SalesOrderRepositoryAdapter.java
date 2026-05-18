@@ -16,6 +16,11 @@ public class SalesOrderRepositoryAdapter implements SalesOrderRepositoryPort {
     }
 
     @Override
+    public void deleteById(UUID idSalesOrder) {
+        salesOrderRepository.deleteById(idSalesOrder);
+    }
+
+    @Override
     public SalesOrder save(SalesOrder salesOrder) {
         SalesOrderJpaEntity entity = toEntity(salesOrder);
         SalesOrderJpaEntity saved = salesOrderRepository.save(entity);
