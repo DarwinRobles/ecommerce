@@ -20,6 +20,7 @@ public class Product {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private boolean status;
+    private String imageUrl;
 
     public Product() {}
 }

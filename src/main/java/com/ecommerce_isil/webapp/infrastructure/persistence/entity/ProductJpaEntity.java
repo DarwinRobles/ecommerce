@@ -39,6 +39,7 @@ public class ProductJpaEntity {
     private LocalDateTime updatedAt;
 
     private boolean status;
+    private String imageUrl;
 
     public ProductJpaEntity() {
     }
