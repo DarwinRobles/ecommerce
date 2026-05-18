@@ -6,6 +6,7 @@ import com.ecommerce_isil.webapp.infrastructure.persistence.entity.CategoryJpaEn
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.CategoryRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +24,16 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
         CategoryJpaEntity entity = toEntity(category);
         CategoryJpaEntity saved = categoryRepository.save(entity);
         return toDomain(saved);
+    }
+
+    @Override
+    public List<Category> findAll() {
+        return categoryRepository.findAll().stream().map(this::toDomain).toList();
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        categoryRepository.deleteById(id);
     }
 
     @Override

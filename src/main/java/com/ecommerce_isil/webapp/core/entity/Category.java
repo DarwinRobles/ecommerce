@@ -16,6 +16,5 @@ public class Category {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Category() {
-    }
+    public Category() {}
 }

@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterCategoryRequest {
-
+public class UpdateCategoryRequest {
     private String name;
     private String description;
 }
