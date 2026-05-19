@@ -1,4 +1,4 @@
-package com.ecommerce_isil.webapp.infrastructure.web.controller;
+package com.ecommerce_isil.webapp.infrastructure.controller;
 
 import com.ecommerce_isil.webapp.core.usecase.dto.request.LoginUserRequest;
 import com.ecommerce_isil.webapp.core.usecase.dto.response.LoginUserResponse;
