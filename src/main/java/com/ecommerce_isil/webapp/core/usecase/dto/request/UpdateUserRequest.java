@@ -5,15 +5,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterUserRequest {
+public class UpdateUserRequest {
     private String name;
     private String lastName;
     private String firstName;
     private String email;
-    private String password;
     private String phone;
 
-    public RegisterUserRequest(
+    public UpdateUserRequest(
             String name,
             String lastName,
             String firstName,
@@ -25,8 +24,6 @@ public class RegisterUserRequest {
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
-        this.password = password;
         this.phone = phone;
     }
-
 }
