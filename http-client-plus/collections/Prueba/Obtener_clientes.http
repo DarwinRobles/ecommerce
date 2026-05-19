@@ -1,0 +1,5 @@
+### Obtener clientes
+GET http://localhost:8080/clients
+
+>> Obtener_clientes/response-{{$timestamp}}.json
+

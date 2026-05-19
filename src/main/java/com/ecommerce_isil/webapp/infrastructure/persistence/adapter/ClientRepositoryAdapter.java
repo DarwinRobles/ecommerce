@@ -4,16 +4,26 @@ import com.ecommerce_isil.webapp.core.entity.Client;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ClientRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ClientJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ClientRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@Component
 public class ClientRepositoryAdapter implements ClientRepositoryPort {
     private final ClientRepository clientRepository;
 
     public ClientRepositoryAdapter(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
+
+    @Override
+    public Page<Client> findAll(Pageable pageable){
+        return clientRepository.findAll(pageable).map(this::toDomain);
+    }
+
 
     @Override
     public Client save(Client client) {
