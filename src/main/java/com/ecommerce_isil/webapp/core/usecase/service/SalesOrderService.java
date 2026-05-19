@@ -5,9 +5,11 @@ import com.ecommerce_isil.webapp.core.usecase.dto.request.CreateSalesOrderReques
 import com.ecommerce_isil.webapp.core.usecase.dto.response.SalesOrderResponse;
 import com.ecommerce_isil.webapp.core.usecase.port.in.CreateSalesOrderCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.SalesOrderRepositoryPort;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class SalesOrderService implements CreateSalesOrderCase {
     private final SalesOrderRepositoryPort salesOrderRepositoryPort;
 

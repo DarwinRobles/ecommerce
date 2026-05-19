@@ -7,12 +7,14 @@ import com.ecommerce_isil.webapp.core.usecase.port.in.FindUserByYearCase;
 import com.ecommerce_isil.webapp.core.usecase.port.in.RegisterUserCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.UserRepositoryPort;
 import com.ecommerce_isil.webapp.core.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class UserService implements RegisterUserCase, DeleteUserCase, FindUserByYearCase {
     private final UserRepositoryPort userRepositoryPort;
 
