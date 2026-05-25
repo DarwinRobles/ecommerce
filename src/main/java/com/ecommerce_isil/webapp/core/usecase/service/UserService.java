@@ -6,6 +6,8 @@ import com.ecommerce_isil.webapp.core.usecase.port.in.DeleteUserCase;
 import com.ecommerce_isil.webapp.core.usecase.port.in.FindUserByYearCase;
 import com.ecommerce_isil.webapp.core.usecase.port.in.RegisterUserCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.UserRepositoryPort;
+import com.ecommerce_isil.webapp.core.usecase.dto.response.LogoutUserResponse;
+import com.ecommerce_isil.webapp.core.usecase.port.in.LogoutUserCase;
 import com.ecommerce_isil.webapp.core.entity.User;
 
 import java.time.LocalDateTime;
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class UserService implements RegisterUserCase, DeleteUserCase, FindUserByYearCase {
+public class UserService implements RegisterUserCase, DeleteUserCase, FindUserByYearCase, LogoutUserCase {
     private final UserRepositoryPort userRepositoryPort;
 
     public UserService(UserRepositoryPort userRepositoryPort) {
@@ -65,5 +67,13 @@ public class UserService implements RegisterUserCase, DeleteUserCase, FindUserBy
         LocalDateTime begin = LocalDateTime.of(year, 1, 1, 0, 0, 0);
         LocalDateTime end = LocalDateTime.of(year, 12, 31, 0, 0,0);
         return userRepositoryPort.findByCreatedAtBetween(begin, end);
+    }
+
+    //LogoutUser
+    @Override
+    public LogoutUserResponse logoutUser(String email){
+        return new LogoutUserResponse(
+                "Sesión cerrada correctamente para el usuario: " + email
+        );
     }
 }
