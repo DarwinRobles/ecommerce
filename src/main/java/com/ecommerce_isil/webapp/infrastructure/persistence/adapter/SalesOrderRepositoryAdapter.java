@@ -9,11 +9,22 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 import java.util.UUID;
 @Component
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+import java.util.UUID;
+
+@Repository
 public class SalesOrderRepositoryAdapter implements SalesOrderRepositoryPort {
     private final SalesOrderRepository salesOrderRepository;
 
     public SalesOrderRepositoryAdapter(SalesOrderRepository salesOrderRepository) {
         this.salesOrderRepository = salesOrderRepository;
+    }
+
+    @Override
+    public void deleteById(UUID idSalesOrder) {
+        salesOrderRepository.deleteById(idSalesOrder);
     }
 
     @Override

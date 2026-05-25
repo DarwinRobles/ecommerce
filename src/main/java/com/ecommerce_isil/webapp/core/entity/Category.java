@@ -8,18 +8,13 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class User {
+public class Category {
     private UUID id;
     private String name;
-    private String lastName;
-    private String firstName;
-    private String email;
-    private String password;
-    private String role;
-    private String phone;
+    private String description;
+    private boolean status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public User(){}
-
+    public Category() {}
 }
