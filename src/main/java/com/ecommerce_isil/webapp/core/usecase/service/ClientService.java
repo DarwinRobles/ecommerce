@@ -13,6 +13,12 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 @Service
 public class ClientService implements CreateClientCase, GetClientListCase {
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+
+@Service
+public class ClientService implements CreateClientCase {
     private final ClientRepositoryPort clientRepositoryPort;
 
     public ClientService(ClientRepositoryPort clientRepositoryPort) {

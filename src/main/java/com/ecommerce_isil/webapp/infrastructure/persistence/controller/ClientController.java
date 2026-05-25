@@ -8,6 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.ecommerce_isil.webapp.core.usecase.dto.request.CreateClientRequest;
+import com.ecommerce_isil.webapp.core.usecase.dto.response.ClientResponse;
+import com.ecommerce_isil.webapp.core.usecase.port.in.CreateClientCase;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/clients")
@@ -22,6 +27,19 @@ public class ClientController {
 
     public ResponseEntity<Page<ClientResponse>> getClients(Pageable pageable) {
         Page<ClientResponse> response  =  getClientListCase.getClients(pageable);
+        return ResponseEntity.ok(response);
+    }
+}
+
+    private final CreateClientCase createClientCase;
+
+    public ClientController(CreateClientCase createClientCase) {
+        this.createClientCase = createClientCase;
+    }
+
+    @PostMapping
+    public ResponseEntity<ClientResponse> createClient(@RequestBody CreateClientRequest request) {
+        ClientResponse response = createClientCase.createClient(request);
         return ResponseEntity.ok(response);
     }
 }
