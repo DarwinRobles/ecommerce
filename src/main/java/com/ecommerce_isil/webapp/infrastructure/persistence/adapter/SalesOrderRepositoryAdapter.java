@@ -16,6 +16,7 @@ import java.util.UUID;
 
 @Repository
 public class SalesOrderRepositoryAdapter implements SalesOrderRepositoryPort {
+
     private final SalesOrderRepository salesOrderRepository;
 
     public SalesOrderRepositoryAdapter(SalesOrderRepository salesOrderRepository) {
@@ -29,8 +30,11 @@ public class SalesOrderRepositoryAdapter implements SalesOrderRepositoryPort {
 
     @Override
     public SalesOrder save(SalesOrder salesOrder) {
+
         SalesOrderJpaEntity entity = toEntity(salesOrder);
+
         SalesOrderJpaEntity saved = salesOrderRepository.save(entity);
+
         return toDomain(saved);
     }
 
@@ -39,25 +43,41 @@ public class SalesOrderRepositoryAdapter implements SalesOrderRepositoryPort {
         return salesOrderRepository.findById(id).map(this::toDomain);
     }
 
+    @Override
+    public SalesOrder update(SalesOrder salesOrder) {
+
+        SalesOrderJpaEntity entity = toEntity(salesOrder);
+
+        SalesOrderJpaEntity updated = salesOrderRepository.save(entity);
+
+        return toDomain(updated);
+    }
+
     private SalesOrderJpaEntity toEntity(SalesOrder order) {
+
         SalesOrderJpaEntity entity = new SalesOrderJpaEntity();
+
         entity.setId(order.getId());
         entity.setCreatedAt(order.getCreatedAt());
         entity.setIdClient(order.getIdClient());
         entity.setIdProduct(order.getIdProduct());
         entity.setStatus(order.getStatus());
         entity.setQuantity(order.getQuantity());
+
         return entity;
     }
 
     private SalesOrder toDomain(SalesOrderJpaEntity entity) {
+
         SalesOrder order = new SalesOrder();
+
         order.setId(entity.getId());
         order.setCreatedAt(entity.getCreatedAt());
         order.setIdClient(entity.getIdClient());
         order.setIdProduct(entity.getIdProduct());
         order.setStatus(entity.getStatus());
         order.setQuantity(entity.getQuantity());
+
         return order;
     }
 }

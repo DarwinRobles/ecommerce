@@ -9,5 +9,7 @@ public interface SalesOrderRepositoryPort {
     SalesOrder save(SalesOrder salesOrder);
 
     Optional<SalesOrder> findById(UUID id);
+
+    SalesOrder update(SalesOrder salesOrder);
     void deleteById(UUID idSalesOrder);
 }
