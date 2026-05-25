@@ -12,5 +12,6 @@ public interface ProductRepositoryPort {
 
     Optional<Product> findById(UUID id);
 
+    Product updateProduct(Product product);
     List<Product> findByPriceRange (BigDecimal minPrice, BigDecimal maxPrice);
 }

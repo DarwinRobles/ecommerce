@@ -4,12 +4,14 @@ import com.ecommerce_isil.webapp.core.entity.Product;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ProductJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ProductRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+@Component
 
 @Repository
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
@@ -18,6 +20,14 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
 
     public ProductRepositoryAdapter(ProductRepository productRepository) {
         this.productRepository = productRepository;
+    }
+
+    //update
+    @Override
+    public Product updateProduct(Product product){
+        ProductJpaEntity entity = toEntity(product);
+        ProductJpaEntity updated = productRepository.save(entity);
+        return toDomain(updated);
     }
 
     @Override
