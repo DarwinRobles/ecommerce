@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.UUID;
 @Component
 
@@ -40,6 +42,14 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public Optional<Product> findById(UUID id) {
         return productRepository.findById(id).map(this::toDomain);
+    }
+
+    @Override
+    public List<Product> findTopSellingProducts() {
+        return productRepository.findTop5ByOrderBySalesDesc()
+                .stream()
+                .map(this::toDomain)
+                .collect(Collectors.toList());
     }
 
     private ProductJpaEntity toEntity(Product product) {

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -58,6 +59,9 @@ public class ProductService implements CreateProductCase {
                 saved.isStatus()
         );
     }
+    public List<Product> getTopSellingProducts() {
+    return productRepositoryPort.findTopSellingProducts();
+}
 
     @Override
     public UploadProductImageResponse uploadImage(UUID productId, byte[] imageBytes, String filename) throws IOException {

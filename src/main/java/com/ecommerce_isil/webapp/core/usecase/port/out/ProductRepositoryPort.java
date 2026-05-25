@@ -8,10 +8,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductRepositoryPort {
+
     Product save(Product product);
 
     Optional<Product> findById(UUID id);
 
+    List<Product> findTopSellingProducts();
+}
     Product updateProduct(Product product);
     List<Product> findByPriceRange (BigDecimal minPrice, BigDecimal maxPrice);
 }
