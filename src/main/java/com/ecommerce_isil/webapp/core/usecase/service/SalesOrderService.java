@@ -9,6 +9,7 @@ import com.ecommerce_isil.webapp.core.usecase.port.out.SalesOrderRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
 @Service
 public class SalesOrderService implements CreateSalesOrderCase {
     private final SalesOrderRepositoryPort salesOrderRepositoryPort;

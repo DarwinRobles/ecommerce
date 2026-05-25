@@ -4,6 +4,8 @@ import com.ecommerce_isil.webapp.core.entity.User;
 import com.ecommerce_isil.webapp.core.usecase.port.out.UserRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.UserJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -26,7 +28,10 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
         return toDomain(saved);
     }
 
-
+    @Override
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable).map(this::toDomain);
+    }
 
     @Override
     public Optional<User> findById(UUID id) {

@@ -11,6 +11,8 @@ import java.util.UUID;
 @Component
 import org.springframework.stereotype.Repository;
 
+
+@Component
 import java.util.Optional;
 import java.util.UUID;
 

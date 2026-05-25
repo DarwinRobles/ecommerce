@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 @Component
 
+@Component
 @Repository
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
 
