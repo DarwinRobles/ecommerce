@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductRepository extends JpaRepository<ProductJpaEntity, UUID> {
+    List<ProductJpaEntity> findByStatus(boolean status);
 
     List<ProductJpaEntity> findByPriceBetween (BigDecimal minPrice, BigDecimal maxPrice);
 }

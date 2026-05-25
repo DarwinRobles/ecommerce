@@ -11,6 +11,8 @@ public interface ProductRepositoryPort {
     Product save(Product product);
 
     Optional<Product> findById(UUID id);
+    void deleteById(UUID id);
+    List<Product> findByStatus(boolean status);
 
     Product updateProduct(Product product);
     List<Product> findByPriceRange (BigDecimal minPrice, BigDecimal maxPrice);
