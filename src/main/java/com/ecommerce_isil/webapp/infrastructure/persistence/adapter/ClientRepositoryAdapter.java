@@ -4,10 +4,12 @@ import com.ecommerce_isil.webapp.core.entity.Client;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ClientRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ClientJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ClientRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class ClientRepositoryAdapter implements ClientRepositoryPort {
     private final ClientRepository clientRepository;
 

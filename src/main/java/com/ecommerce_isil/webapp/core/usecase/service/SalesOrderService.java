@@ -6,6 +6,8 @@ import com.ecommerce_isil.webapp.core.usecase.dto.response.SalesOrderResponse;
 import com.ecommerce_isil.webapp.core.usecase.port.in.CreateSalesOrderCase;
 import com.ecommerce_isil.webapp.core.usecase.port.in.DeleteSalesOrderCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.SalesOrderRepositoryPort;
+import org.springframework.stereotype.Service;
+
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -21,7 +23,9 @@ public class SalesOrderService implements CreateSalesOrderCase, DeleteSalesOrder
         salesOrderRepositoryPort.deleteById(idSalesOrder);
     }
     public SalesOrderResponse createSalesOrder(CreateSalesOrderRequest request) {
+
         SalesOrder order = new SalesOrder();
+
         order.setIdClient(request.getIdClient());
         order.setIdProduct(request.getIdProduct());
         order.setStatus(request.getStatus());
