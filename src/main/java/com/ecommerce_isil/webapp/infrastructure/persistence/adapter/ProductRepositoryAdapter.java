@@ -4,11 +4,14 @@ import com.ecommerce_isil.webapp.core.entity.Product;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ProductJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 import java.util.UUID;
 
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
+
     private final ProductRepository productRepository;
 
     public ProductRepositoryAdapter(ProductRepository productRepository) {
@@ -25,6 +28,12 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public Optional<Product> findById(UUID id) {
         return productRepository.findById(id).map(this::toDomain);
+    }
+
+    @Override
+    public Page<Product> filterByCategory(UUID idCategory, Pageable pageable) {
+        return productRepository.findByIdCategory(idCategory, pageable)
+                .map(this::toDomain);
     }
 
     private ProductJpaEntity toEntity(Product product) {
