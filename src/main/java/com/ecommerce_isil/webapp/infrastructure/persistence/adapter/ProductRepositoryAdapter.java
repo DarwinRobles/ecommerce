@@ -4,9 +4,14 @@ import com.ecommerce_isil.webapp.core.entity.Product;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ProductJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ProductRepository;
+import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+@Component
 
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
     private final ProductRepository productRepository;
@@ -55,5 +60,25 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
         product.setUpdatedAt(entity.getUpdatedAt());
         product.setStatus(entity.isStatus());
         return product;
+    }
+
+    @Override
+    public List<Product> findByPriceRange (BigDecimal minPrice, BigDecimal maxPrice) {
+        return productRepository.findByPriceBetween(minPrice, maxPrice)
+                .stream()
+                .map(jpaEntity -> {
+                    Product product = new Product();
+                    product.setId(jpaEntity.getId());
+                    product.setName(jpaEntity.getName());
+                    product.setDescription(jpaEntity.getDescription());
+                    product.setPrice(jpaEntity.getPrice());
+                    product.setStock(jpaEntity.getStock());
+                    product.setSales(jpaEntity.getSales());
+                    product.setIdCategory(jpaEntity.getIdCategory());
+                    product.setCreatedAt(jpaEntity.getCreatedAt());
+                    product.setUpdatedAt(jpaEntity.getUpdatedAt());
+                    product.setStatus(jpaEntity.isStatus());
+                    return product;
+                }).toList();
     }
 }

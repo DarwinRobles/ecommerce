@@ -4,11 +4,16 @@ import com.ecommerce_isil.webapp.core.entity.Product;
 import com.ecommerce_isil.webapp.core.usecase.dto.request.CreateProductRequest;
 import com.ecommerce_isil.webapp.core.usecase.dto.response.ProductResponse;
 import com.ecommerce_isil.webapp.core.usecase.port.in.CreateProductCase;
+import com.ecommerce_isil.webapp.core.usecase.port.in.FindProductByPriceRangeUseCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
+import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class ProductService implements CreateProductCase {
+@Service
+public class ProductService implements CreateProductCase, FindProductByPriceRangeUseCase {
     private final ProductRepositoryPort productRepositoryPort;
 
     public ProductService(ProductRepositoryPort productRepositoryPort) {
@@ -42,5 +47,13 @@ public class ProductService implements CreateProductCase {
                 saved.getUpdatedAt(),
                 saved.isStatus()
         );
+    }
+    @Override
+    public List<Product> execute(BigDecimal minPrice, BigDecimal maxPrice) {
+        if (minPrice.compareTo(BigDecimal.ZERO) < 0 || maxPrice.compareTo(BigDecimal.ZERO) <0) {
+            throw new IllegalArgumentException("Los precios no pueden ser negativos");
+        }
+
+        return productRepositoryPort.findByPriceRange(minPrice, maxPrice);
     }
 }
