@@ -7,6 +7,7 @@ import com.ecommerce_isil.webapp.core.usecase.port.in.CreateClientCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ClientRepositoryPort;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class ClientService implements CreateClientCase {
     private final ClientRepositoryPort clientRepositoryPort;
@@ -43,6 +44,24 @@ public class ClientService implements CreateClientCase {
                 saved.getRuc(),
                 saved.getCreatedAt(),
                 saved.getUpdatedAt()
+        );
+    }
+    @Override
+    public ClientResponse getClient(UUID id) {
+        Client client = clientRepositoryPort.findById(id)
+                .orElseThrow(() -> new RuntimeException("Client not found"));
+        return new ClientResponse(
+                client.getId(),
+                client.getName(),
+                client.getFirstName(),
+                client.getLastName(),
+                client.getEmail(),
+                client.getPhone(),
+                client.getAddress(),
+                client.getDni(),
+                client.getRuc(),
+                client.getCreatedAt(),
+                client.getUpdatedAt()
         );
     }
 }
