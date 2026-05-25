@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 @Service
 public class UserService implements RegisterUserCase {
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class UserService implements RegisterUserCase, DeleteUserCase, FindUserByYearCase {
     private final UserRepositoryPort userRepositoryPort;
 
