@@ -4,16 +4,16 @@ import com.ecommerce_isil.webapp.core.entity.Product;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ProductJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ProductRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Component
-
+@Repository
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
+
     private final ProductRepository productRepository;
 
     public ProductRepositoryAdapter(ProductRepository productRepository) {
@@ -44,6 +44,7 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
         entity.setCreatedAt(product.getCreatedAt());
         entity.setUpdatedAt(product.getUpdatedAt());
         entity.setStatus(product.isStatus());
+        entity.setImageUrl(product.getImageUrl());
         return entity;
     }
 
@@ -59,6 +60,7 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
         product.setCreatedAt(entity.getCreatedAt());
         product.setUpdatedAt(entity.getUpdatedAt());
         product.setStatus(entity.isStatus());
+        product.setImageUrl(entity.getImageUrl());
         return product;
     }
 

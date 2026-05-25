@@ -1,31 +1,29 @@
 package com.ecommerce_isil.webapp.infrastructure.web;
 
-
-import com.ecommerce_isil.webapp.core.entity.Product;
-import com.ecommerce_isil.webapp.core.usecase.port.in.FindProductByPriceRangeUseCase;
-import lombok.RequiredArgsConstructor;
+import com.ecommerce_isil.webapp.core.usecase.dto.response.UploadProductImageResponse;
+import com.ecommerce_isil.webapp.core.usecase.port.in.UploadProductImageCase;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
-import java.util.List;
+import java.io.IOException;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/products")
-@RequiredArgsConstructor
+@RequestMapping("/api/products")
 public class ProductController {
 
-    private final FindProductByPriceRangeUseCase findProductByPriceRangeUseCase;
-    @GetMapping("/filter")
-    public ResponseEntity<List<Product>> findByPriceRange (
-            @RequestParam BigDecimal min,
-            @RequestParam BigDecimal max
-            ) {
-        List<Product> products = findProductByPriceRangeUseCase.execute(min, max);
+    private final UploadProductImageCase uploadProductImageCase;
 
-        return ResponseEntity.ok(products);
+    public ProductController(UploadProductImageCase uploadProductImageCase) {
+        this.uploadProductImageCase = uploadProductImageCase;
+    }
+
+    @PostMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<UploadProductImageResponse> uploadImage(
+            @PathVariable UUID id,
+            @RequestParam("file") MultipartFile file) throws IOException {
+        return ResponseEntity.ok(uploadProductImageCase.uploadImage(id, file.getBytes(), file.getOriginalFilename()));
     }
 }
