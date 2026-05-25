@@ -4,7 +4,15 @@ import com.ecommerce_isil.webapp.core.entity.Client;
 import com.ecommerce_isil.webapp.core.usecase.dto.request.CreateClientRequest;
 import com.ecommerce_isil.webapp.core.usecase.dto.response.ClientResponse;
 import com.ecommerce_isil.webapp.core.usecase.port.in.CreateClientCase;
+import com.ecommerce_isil.webapp.core.usecase.port.in.GetClientListCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ClientRepositoryPort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+@Service
+public class ClientService implements CreateClientCase, GetClientListCase {
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -46,5 +54,22 @@ public class ClientService implements CreateClientCase {
                 saved.getCreatedAt(),
                 saved.getUpdatedAt()
         );
+    }
+    @Override
+    public Page<ClientResponse> getClients(Pageable pageable){
+        Page<Client> clientPage = clientRepositoryPort.findAll(pageable);
+        return clientPage.map(client -> new ClientResponse(
+                client.getId(),
+                client.getName(),
+                client.getFirstName(),
+                client.getLastName(),
+                client.getEmail(),
+                client.getPhone(),
+                client.getAddress(),
+                client.getDni(),
+                client.getRuc(),
+                client.getCreatedAt(),
+                client.getUpdatedAt()
+        ));
     }
 }
