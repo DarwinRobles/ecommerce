@@ -7,7 +7,6 @@ import com.ecommerce_isil.webapp.core.usecase.dto.response.UploadProductImageRes
 import com.ecommerce_isil.webapp.core.usecase.port.in.CreateProductCase;
 import com.ecommerce_isil.webapp.core.usecase.port.in.UploadProductImageCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,6 +18,8 @@ import java.util.UUID;
 @Service
 public class ProductService implements CreateProductCase, UploadProductImageCase {
 
+@Service
+public class ProductService implements CreateProductCase {
     private final ProductRepositoryPort productRepositoryPort;
     private final String uploadDir;
 
