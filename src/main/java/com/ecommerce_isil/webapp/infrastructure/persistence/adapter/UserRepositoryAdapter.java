@@ -5,13 +5,15 @@ import com.ecommerce_isil.webapp.core.usecase.port.out.UserRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.UserJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.UserRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
+
+@Component
 public class UserRepositoryAdapter implements UserRepositoryPort {
     private final UserRepository userRepository;
 

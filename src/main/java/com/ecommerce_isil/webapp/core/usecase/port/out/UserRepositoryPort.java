@@ -15,5 +15,4 @@ public interface UserRepositoryPort {
     void deleteById(UUID id);
     //filtrar por año
     List<User> findByCreatedAtBetween(LocalDateTime begin, LocalDateTime end);
-
 }

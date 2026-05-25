@@ -10,6 +10,8 @@ import com.ecommerce_isil.webapp.core.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+@Service
+public class UserService implements RegisterUserCase {
 import java.util.List;
 import java.util.UUID;
 
