@@ -4,10 +4,12 @@ import com.ecommerce_isil.webapp.core.entity.SalesOrder;
 import com.ecommerce_isil.webapp.core.usecase.port.out.SalesOrderRepositoryPort;
 import com.ecommerce_isil.webapp.infrastructure.persistence.entity.SalesOrderJpaEntity;
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.SalesOrderRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class SalesOrderRepositoryAdapter implements SalesOrderRepositoryPort {
     private final SalesOrderRepository salesOrderRepository;
 
