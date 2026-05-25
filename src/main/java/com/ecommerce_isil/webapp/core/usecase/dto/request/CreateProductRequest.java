@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+
 public class CreateProductRequest {
     private String name;
     private String description;
