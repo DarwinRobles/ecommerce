@@ -6,6 +6,8 @@ import com.ecommerce_isil.webapp.infrastructure.persistence.entity.ProductJpaEnt
 import com.ecommerce_isil.webapp.infrastructure.persistence.jpa.ProductRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -60,5 +62,25 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
         product.setStatus(entity.isStatus());
         product.setImageUrl(entity.getImageUrl());
         return product;
+    }
+
+    @Override
+    public List<Product> findByPriceRange (BigDecimal minPrice, BigDecimal maxPrice) {
+        return productRepository.findByPriceBetween(minPrice, maxPrice)
+                .stream()
+                .map(jpaEntity -> {
+                    Product product = new Product();
+                    product.setId(jpaEntity.getId());
+                    product.setName(jpaEntity.getName());
+                    product.setDescription(jpaEntity.getDescription());
+                    product.setPrice(jpaEntity.getPrice());
+                    product.setStock(jpaEntity.getStock());
+                    product.setSales(jpaEntity.getSales());
+                    product.setIdCategory(jpaEntity.getIdCategory());
+                    product.setCreatedAt(jpaEntity.getCreatedAt());
+                    product.setUpdatedAt(jpaEntity.getUpdatedAt());
+                    product.setStatus(jpaEntity.isStatus());
+                    return product;
+                }).toList();
     }
 }
