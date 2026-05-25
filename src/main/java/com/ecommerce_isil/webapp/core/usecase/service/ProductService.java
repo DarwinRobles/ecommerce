@@ -7,6 +7,8 @@ import com.ecommerce_isil.webapp.core.usecase.dto.response.UploadProductImageRes
 import com.ecommerce_isil.webapp.core.usecase.port.in.CreateProductCase;
 import com.ecommerce_isil.webapp.core.usecase.port.in.UploadProductImageCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
+import com.ecommerce_isil.webapp.core.usecase.port.in.GetProductCase;
+import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
+public class ProductService implements CreateProductCase, GetProductCase {
 public class ProductService implements CreateProductCase, UploadProductImageCase {
 
 @Service
@@ -44,18 +47,28 @@ public class ProductService implements CreateProductCase {
         product.setUpdatedAt(LocalDateTime.now());
 
         Product saved = productRepositoryPort.save(product);
+        return toResponse(saved);
+    }
+    @Override
+    public ProductResponse getProduct(UUID id) {
+        Product product = productRepositoryPort.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
+        return toResponse(product);
+    }
+
+    private ProductResponse toResponse(Product product) {
         return new ProductResponse(
-                saved.getId(),
-                saved.getName(),
-                saved.getDescription(),
-                saved.getPrice(),
-                saved.getStock(),
-                saved.getSales(),
-                saved.getIdCategory(),
-                saved.getCreatedAt(),
-                saved.getUpdatedAt(),
-                saved.isStatus()
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getStock(),
+                product.getSales(),
+                product.getIdCategory(),
+                product.getCreatedAt(),
+                product.getUpdatedAt(),
+                product.isStatus()
         );
     }
 
