@@ -11,4 +11,5 @@ public interface SalesOrderRepositoryPort {
     Optional<SalesOrder> findById(UUID id);
 
     SalesOrder update(SalesOrder salesOrder);
+    void deleteById(UUID idSalesOrder);
 }
