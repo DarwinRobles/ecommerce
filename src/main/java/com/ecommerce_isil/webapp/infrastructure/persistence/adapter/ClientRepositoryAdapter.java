@@ -8,9 +8,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.UUID;
+@Component
+import org.springframework.stereotype.Repository;
 
 
 @Component
+import java.util.Optional;
+import java.util.UUID;
+
+@Repository
 public class ClientRepositoryAdapter implements ClientRepositoryPort {
     private final ClientRepository clientRepository;
 
