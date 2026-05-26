@@ -37,6 +37,7 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
         return toDomain(saved);
     }
 
+
     @Override
     public Optional<Product> findById(UUID id) {
         return productRepository.findById(id).map(this::toDomain);

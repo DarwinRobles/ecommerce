@@ -10,6 +10,8 @@ import java.util.UUID;
 public interface ProductRepositoryPort {
     Product save(Product product);
 
+    Optional<Product> findByID(UUID id);
+
     Optional<Product> findById(UUID id);
 
     Product updateProduct(Product product);

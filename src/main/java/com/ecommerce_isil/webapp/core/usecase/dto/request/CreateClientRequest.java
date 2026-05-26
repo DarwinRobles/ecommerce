@@ -15,23 +15,5 @@ public class CreateClientRequest {
     private String dni;
     private String ruc;
 
-    public CreateClientRequest(
-            String name,
-            String firstName,
-            String lastName,
-            String email,
-            String phone,
-            String address,
-            String dni,
-            String ruc
-    ) {
-        this.name = name;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.dni = dni;
-        this.ruc = ruc;
-    }
+    public CreateClientRequest() {}
 }
