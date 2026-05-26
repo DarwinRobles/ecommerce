@@ -27,6 +27,27 @@ public class UpdateProductService implements UpdateProductCase {
 
         Product productUpdated = productRepositoryPort.updateProduct(existingProduct);
 
+    public ProductResponse updateProduct(UUID id, CreateProductRequest request){
+        Product existingProduct = productRepositoryPort.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+
+        if(existingProduct.getName() != null){
+            existingProduct.setName(request.getName());
+        }
+        if(existingProduct.getDescription() != null){
+            existingProduct.setDescription((request.getDescription()));
+        }
+
+        Product productUpdated = productRepositoryPort.updateProduct(existingProduct);
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//        this.price = price;
+//        this.stock = stock;
+//        this.sales = sales;
+//        this.idCategory = idCategory;
+//        this.createdAt = createdAt;
+//        this.updatedAt = updatedAt;
+//        this.status = status;
         return new ProductResponse(
                 productUpdated.getId(),
                 productUpdated.getName(),
@@ -39,5 +60,6 @@ public class UpdateProductService implements UpdateProductCase {
                 productUpdated.getUpdatedAt(),
                 productUpdated.isStatus()
         );
+
     }
 }

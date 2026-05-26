@@ -6,5 +6,6 @@ import com.ecommerce_isil.webapp.core.usecase.dto.response.ProductResponse;
 import java.util.UUID;
 
 public interface UpdateProductCase {
+
     ProductResponse updateProduct(UUID id, CreateProductRequest request);
 }
