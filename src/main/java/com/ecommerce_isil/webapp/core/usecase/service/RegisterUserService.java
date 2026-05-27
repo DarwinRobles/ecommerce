@@ -7,16 +7,17 @@ import com.ecommerce_isil.webapp.core.usecase.port.in.FindUserByYearCase;
 import com.ecommerce_isil.webapp.core.usecase.port.in.RegisterUserCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.UserRepositoryPort;
 import com.ecommerce_isil.webapp.core.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-public class UserService implements RegisterUserCase, DeleteUserCase, FindUserByYearCase {
+@Service
+public class RegisterUserService implements RegisterUserCase {
     private final UserRepositoryPort userRepositoryPort;
 
-    public UserService(UserRepositoryPort userRepositoryPort) {
+    public RegisterUserService(UserRepositoryPort userRepositoryPort) {
         this.userRepositoryPort = userRepositoryPort;
     }
 
@@ -31,8 +32,6 @@ public class UserService implements RegisterUserCase, DeleteUserCase, FindUserBy
         user.setPassword(request.getPassword());
         user.setPhone(request.getPhone());
         user.setCreatedAt(LocalDateTime.now());
-        /*acá propongo que updatedAt sea null porque el updatedAt solo adquiere valor cuando se actualiza
-        aqui solamente estamos registrando un nuevo usuario*/
         user.setUpdatedAt(null);
         user.setRole("USER");
 
@@ -52,18 +51,4 @@ public class UserService implements RegisterUserCase, DeleteUserCase, FindUserBy
 
     }
 
-
-    //eliminar un user por su idUser
-    @Override
-    public void deleteUser(UUID idUser) {
-        userRepositoryPort.deleteById(idUser);
-    }
-
-    //acá la logica para tener todos los registros desde el inicio hasta el fin del año que se escriba
-    @Override
-    public List<User> findUserByYear(int year) {
-        LocalDateTime begin = LocalDateTime.of(year, 1, 1, 0, 0, 0);
-        LocalDateTime end = LocalDateTime.of(year, 12, 31, 0, 0,0);
-        return userRepositoryPort.findByCreatedAtBetween(begin, end);
-    }
 }

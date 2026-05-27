@@ -5,9 +5,11 @@ import com.ecommerce_isil.webapp.core.usecase.dto.request.CreateProductRequest;
 import com.ecommerce_isil.webapp.core.usecase.dto.response.ProductResponse;
 import com.ecommerce_isil.webapp.core.usecase.port.in.CreateProductCase;
 import com.ecommerce_isil.webapp.core.usecase.port.out.ProductRepositoryPort;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class ProductService implements CreateProductCase {
     private final ProductRepositoryPort productRepositoryPort;
 
