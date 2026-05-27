@@ -33,19 +33,6 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
         return userRepository.findById(id).map(this::toDomain);
     }
 
-    //eliminar User por ID
-    @Override
-    public void deleteById(UUID id) {
-        userRepository.deleteById(id);
-    }
-
-    //filtrar segun el año, en la parte de UserService establecemos como se trabaja esta lógica
-    @Override
-    public List<User> findByCreatedAtBetween(LocalDateTime begin, LocalDateTime end) {
-        List<UserJpaEntity> entities = userRepository.findByCreatedAtBetween(begin, end);
-        return entities.stream().map(this::toDomain).toList();
-    }
-
     private UserJpaEntity toEntity(User user) {
         UserJpaEntity entity = new UserJpaEntity();
         entity.setId(user.getId());

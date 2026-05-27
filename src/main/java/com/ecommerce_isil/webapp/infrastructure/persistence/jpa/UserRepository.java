@@ -8,6 +8,4 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserRepository  extends JpaRepository<UserJpaEntity, UUID> {
-    //filtrar entre el inicio y el fin de un año
-    List<UserJpaEntity> findByCreatedAtBetween(LocalDateTime begin, LocalDateTime end);
 }
