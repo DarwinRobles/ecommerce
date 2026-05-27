@@ -10,8 +10,4 @@ import java.util.UUID;
 public interface UserRepositoryPort {
     User save(User user);
     Optional<User> findById(UUID id);
-    //eliminar User por id
-    void deleteById(UUID id);
-    //filtrar por año
-    List<User> findByCreatedAtBetween(LocalDateTime begin, LocalDateTime end);
 }
