@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+// Estructura de la base de datos
 @Getter
 @Setter
 @Entity

@@ -40,5 +40,4 @@ public class UserResponse {
         this.updatedAt = updatedAt;
         this.role = role;
     }
-
 }
